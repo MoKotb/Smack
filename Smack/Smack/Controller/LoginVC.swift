@@ -2,8 +2,13 @@ import UIKit
 
 class LoginVC: UIViewController {
 
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.isHidden = true
     }
     
     @IBAction func ClosePressed(_ sender: Any) {
