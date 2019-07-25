@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileVC" customModule="Smack" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundView" destination="3s4-vt-Q5A" id="UhF-2A-2BZ"/>
                 <outlet property="userEmail" destination="IoU-Rh-pvc" id="cdM-J5-0cO"/>
                 <outlet property="userImage" destination="iie-qC-Kws" id="4Im-c7-H3Z"/>
                 <outlet property="userName" destination="f7e-Ms-66I" id="e19-mN-eKe"/>
@@ -22,7 +23,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frx-e0-vqw">
+                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3s4-vt-Q5A">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frx-e0-vqw" customClass="RoundedView" customModule="Smack" customModuleProvider="target">
                     <rect key="frame" x="40" y="268" width="334" height="360"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3eP-Y9-Z9E" userLabel="Close Button">
@@ -90,16 +95,26 @@
                         <constraint firstItem="wLL-u5-0Ko" firstAttribute="centerX" secondItem="frx-e0-vqw" secondAttribute="centerX" id="l8u-6g-hg4"/>
                         <constraint firstItem="3eP-Y9-Z9E" firstAttribute="top" secondItem="frx-e0-vqw" secondAttribute="top" constant="32" id="zJA-C0-wNZ"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="3s4-vt-Q5A" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="25Q-vR-DXi"/>
                 <constraint firstItem="frx-e0-vqw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="3se-0W-a07"/>
+                <constraint firstItem="3s4-vt-Q5A" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BFL-BA-owD"/>
                 <constraint firstItem="frx-e0-vqw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F51-Bh-Rn1"/>
                 <constraint firstItem="frx-e0-vqw" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="LmH-u4-fEq"/>
+                <constraint firstItem="3s4-vt-Q5A" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Wmb-BU-N82"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="frx-e0-vqw" secondAttribute="trailing" constant="40" id="z76-Oz-Rd8"/>
+                <constraint firstAttribute="bottom" secondItem="3s4-vt-Q5A" secondAttribute="bottom" id="zll-vG-ml1"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="47.826086956521742" y="70.982142857142847"/>
         </view>
     </objects>
     <resources>

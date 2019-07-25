@@ -58,18 +58,11 @@ class CreateAccountVC: UIViewController {
     }
     
     private func SendUserDataToServer(){
-        
-        guard let name = usernameTextField.text , usernameTextField.text != "" else {
-            return
-        }
-        guard let email = emailTextField.text , emailTextField.text != "" else {
-            return
-        }
-        guard let password = passwordTextField.text , passwordTextField.text != "" else {
-            return
-        }
-        
+        guard let name = usernameTextField.text , usernameTextField.text != "" else { return }
+        guard let email = emailTextField.text , emailTextField.text != "" else { return }
+        guard let password = passwordTextField.text , passwordTextField.text != "" else { return }
         let emailLower = email.lowercased()
+        
         AuthService.instance.RegisterUser(userEmail: emailLower, userPassword: password) { (RegisterSuccess) in
             if RegisterSuccess {
                 AuthService.instance.LoginUser(userEmail: emailLower, userPassword: password, completion: { (LoginSuccess) in

@@ -5,12 +5,13 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var userImage: CircleImage!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userEmail: UILabel!
+    @IBOutlet weak var backgroundView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         SetUserData()
         let closeTouch = UITapGestureRecognizer(target: self, action: #selector(CloseWhenTap))
-        view.addGestureRecognizer(closeTouch)
+        backgroundView.addGestureRecognizer(closeTouch)
     }
 
     private func SetUserData(){

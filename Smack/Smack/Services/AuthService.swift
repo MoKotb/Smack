@@ -81,24 +81,42 @@ class AuthService{
                 guard let data = response.data else {
                     return
                 }
-                do{
-                    let json = try JSON(data:data)
-                    let id = json["_id"].stringValue
-                    let avatarColor = json["avatarColor"].stringValue
-                    let avatarName = json["avatarName"].stringValue
-                    let email = json["email"].stringValue
-                    let name = json["name"].stringValue
-                    UserDataService.instance.setUserData(id: id, name: name, email: email, avatarImage: avatarName, avatarColor: avatarColor)
-                    completion(true)
-                }catch let error{
-                    completion(false)
-                    debugPrint(error.localizedDescription)
-                }
-                
+                self.SetUserData(data: data)
+                completion(true)
             }else{
                 completion(false)
                 debugPrint(response.result.error as Any)
             }
+        }
+    }
+    
+    func FindUser(completion:@escaping CompletionHandler){
+        let header = ["Authorization":"Bearer \(self.authToken)","Content-Type":"application/json; charset=utf-8"]
+        Alamofire.request("\(FIND_USER_URL)\(self.userEmail)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+            if response.result.error == nil{
+                guard let data = response.data else {
+                    return
+                }
+                self.SetUserData(data: data)
+                completion(true)
+            }else{
+                completion(false)
+                debugPrint(response.result.error as Any)
+            }
+        }
+    }
+    
+    private func SetUserData(data:Data){
+        do{
+            let json = try JSON(data:data)
+            let id = json["_id"].stringValue
+            let avatarColor = json["avatarColor"].stringValue
+            let avatarName = json["avatarName"].stringValue
+            let email = json["email"].stringValue
+            let name = json["name"].stringValue
+            UserDataService.instance.setUserData(id: id, name: name, email: email, avatarImage: avatarName, avatarColor: avatarColor)
+        }catch let error{
+            debugPrint(error.localizedDescription)
         }
     }
     
