@@ -20,5 +20,4 @@ class TextFieldView: UITextField {
             attributedPlaceholder = placeholder
         }
     }
-    
 }

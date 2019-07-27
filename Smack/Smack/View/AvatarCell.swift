@@ -29,5 +29,4 @@ class AvatarCell: UICollectionViewCell {
             avatarImage.image = UIImage(named: "light\(index)")
         }
     }
-    
 }

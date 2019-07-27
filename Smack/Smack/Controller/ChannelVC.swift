@@ -14,6 +14,9 @@ class ChannelVC: UIViewController , UITableViewDelegate , UITableViewDataSource 
         
         self.revealViewController().rearViewRevealWidth = view.frame.width - 60
         NotificationCenter.default.addObserver(self, selector: #selector(UpdateUserData(_:)), name: USER_DATA_CHANGE_NAME, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChannelsLoaded(_:)), name: NOTIFICATION_RELOAD_CHANNELS, object: nil)
+        
+        DownloadChannels()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -24,8 +27,29 @@ class ChannelVC: UIViewController , UITableViewDelegate , UITableViewDataSource 
         SetUserData()
     }
     
+    func DownloadChannels(){
+        SocketService.instance.GetChannels { (Success) in
+            if Success {
+                self.channelsTableView.reloadData()
+            }
+        }
+    }
+    
+    private func GetMessage(){
+        SocketService.instance.GetMessages { (newMessage) in
+            if AuthService.instance.isLoggedIn && MessageService.instance.selectedChannel?.id != newMessage.channelID {
+                MessageService.instance.unreadChannels.append(newMessage.channelID)
+                self.channelsTableView.reloadData()
+            }
+        }
+    }
+    
+    @objc private func ChannelsLoaded(_ notification:Notification){
+        self.channelsTableView.reloadData()
+    }
+    
     private func SetUserData(){
-        if AuthService.instance.isLoggedIn{
+        if AuthService.instance.isLoggedIn {
             loginButton.setTitle(UserDataService.instance.name, for: .normal)
             userImage.image = UIImage(named: UserDataService.instance.avatarImage)
             userImage.backgroundColor = UserDataService.instance.GetAvatarBackground(RBGColor: UserDataService.instance.avatarColor)
@@ -33,6 +57,7 @@ class ChannelVC: UIViewController , UITableViewDelegate , UITableViewDataSource 
             loginButton.setTitle("Login", for: .normal)
             userImage.image = UIImage(named: "menuProfileIcon")
             userImage.backgroundColor = UIColor.clear
+            self.channelsTableView.reloadData()
         }
     }
     
@@ -54,9 +79,7 @@ class ChannelVC: UIViewController , UITableViewDelegate , UITableViewDataSource 
         }
     }
     
-    @IBAction func PrepareForUnwind(segue : UIStoryboardSegue){
-        
-    }
+    @IBAction func PrepareForUnwind(segue : UIStoryboardSegue){}
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MessageService.instance.channels.count
@@ -72,4 +95,19 @@ class ChannelVC: UIViewController , UITableViewDelegate , UITableViewDataSource 
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let channel = MessageService.instance.channels[indexPath.row]
+        
+        if MessageService.instance.unreadChannels.count > 0 {
+            MessageService.instance.unreadChannels = MessageService.instance.unreadChannels.filter{$0 != channel.id}
+        }
+        
+        let index = IndexPath(row: indexPath.row, section: 0)
+        tableView.reloadRows(at: [index], with: .none)
+        tableView.selectRow(at: index, animated: false, scrollPosition: .none)
+        
+        MessageService.instance.selectedChannel = channel
+        NotificationCenter.default.post(name: NOTIFICATION_SELECTED_CHANNEL, object: nil)
+        self.revealViewController().revealToggle(animated: true)
+    }
 }

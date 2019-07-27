@@ -119,5 +119,4 @@ class AuthService{
             debugPrint(error.localizedDescription)
         }
     }
-    
 }

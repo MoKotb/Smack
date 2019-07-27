@@ -19,11 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        SocketService.instance.EstablishConnection()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        SocketService.instance.CloseConnection()
     }
-
-
 }
-

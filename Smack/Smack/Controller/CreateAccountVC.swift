@@ -11,6 +11,7 @@ class CreateAccountVC: UIViewController {
     var avatarName = "profileDefault"
     var avatarColor = "[0.5,0.5,0.5,1]"
     var backgroundColor:UIColor?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.isHidden = true

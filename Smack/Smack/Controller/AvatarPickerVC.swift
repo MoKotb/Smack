@@ -8,7 +8,6 @@ class AvatarPickerVC: UIViewController , UICollectionViewDelegate , UICollection
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         avatarCollection.delegate = self
         avatarCollection.dataSource = self
     }

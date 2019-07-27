@@ -22,5 +22,4 @@ class RoundedView: UIView {
     private func SetupView(){
         self.layer.cornerRadius = cornerRadius
     }
-    
 }

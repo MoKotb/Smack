@@ -33,6 +33,10 @@ class AddChannelVC: UIViewController {
     private func GetChannelData(){
         guard let name = nameTextField.text , nameTextField.text != "" else { return }
         guard let description = descriptionTextField.text , descriptionTextField.text != "" else { return }
-        print("\(name) \(description)")
+        SocketService.instance.AddChannel(channelName: name, channelDescription: description) { (Success) in
+            if Success {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }
